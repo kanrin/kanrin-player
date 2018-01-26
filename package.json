@@ -1,13 +1,13 @@
 {
   "name": "kanrin-player",
   "main": "./lib/kanrin-player",
-  "version": "0.0.0",
-  "description": "music player based on atom-music",
+  "version": "0.0.1",
+  "description": "中文的音乐播放器 使用atom-music做基板",
   "keywords": [],
   "activationCommands": {
     "atom-workspace": "kanrin-player:toggle"
   },
-  "repository": "https://github.com/kanrin/kanrin-player",
+  "repository": "https://github.com/kanrin/kanrin-player.git",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

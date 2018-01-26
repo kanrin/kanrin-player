@@ -69,7 +69,6 @@ class KanrinPlayerView extends View
     else
       @show()
 
-
   songEnded: ( e ) =>
     console.log "Changing track"
     @nextTrack()
