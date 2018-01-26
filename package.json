@@ -1,0 +1,19 @@
+{
+  "name": "kanrin-player",
+  "main": "./lib/kanrin-player",
+  "version": "0.0.0",
+  "description": "music player based on atom-music",
+  "keywords": [],
+  "activationCommands": {
+    "atom-workspace": "kanrin-player:toggle"
+  },
+  "repository": "https://github.com/kanrin/kanrin-player",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^2.1.0",
+    "jquery": "^2.1.4"
+  }
+}

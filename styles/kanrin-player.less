@@ -1,0 +1,44 @@
+@import "ui-variables";
+
+.kanrin-player {
+  height: auto;
+  border: 1px solid #000;
+  transition: border 2s linear;
+
+  &.pulse {
+    border-color: #02E9FF;
+  }
+
+  .audio-controls-container {
+    width: 100%;
+    padding: 7px 10px;
+    border-bottom: 1px solid #000;
+
+    .playing-now-container {
+      padding: 5px 20px;
+    }
+
+  }
+
+  .kanrin-player-list-container {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#kanrin_player {
+  width: 100%;
+
+  .audio-player {
+    display: none;
+  }
+}
+
+#ticker {
+  width: 0px;
+  height: 2px;
+  background-color: #202020;
+  position: absolute;
+  top: 98%;
+  left: 0px;
+}
