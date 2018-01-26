@@ -31,18 +31,19 @@ class KanrinPlayerView extends View
             @span '循环', class:'btn shuffle-button icon icon-sync'
           @tag 'label', =>
             @tag 'input', style:'display: none;', type:'button', click:'showPlayList'
-            @span '显示播放列表', class:'btn icon icon-list-ordered',
+            @span '显示', class:'btn icon icon-list-ordered',
           @tag 'label', =>
             @tag 'input', style:'display: none;', type:'button', click:'clearPlayList'
-            @span '清空播放列表', class:'btn icon icon-trashcan',
+            @span '清空', class:'btn icon icon-trashcan',
           @tag 'label', =>
             @tag 'input', style:'display: none;', type:'file', multiple:true, accept:"audio/*", outlet:"musicFileSelectionInput"
-            @span '打开音乐文件', class:'btn icon icon-file-directory',
+            @span '打开', class:'btn icon icon-file-directory',
         @div class:'inline-block playing-now-container', =>
-          @span '正在播放 -> ', class:'highlight'
-          @span '没有播放的文件', class:'highlight', outlet:'nowPlayingTitle'
+          @span '正在播放 ->', class:'highlight'
+          @span '没有文件', class:'highlight', outlet:'nowPlayingTitle'
       @div class:'kanrin-player-list-container'
       @tag 'audio', class:'audio-player', outlet:'audio_player', =>
+        #  @tag 'source', type:'audio/flac', outlet:'player_source'
 
   initialize: ->
     self = @
@@ -52,12 +53,12 @@ class KanrinPlayerView extends View
     @audio_player.on 'pause', ( ) =>
       $('.playback-button').removeClass('icon-playback-pause').addClass('icon-playback-play')
     @audio_player.on 'ended', @songEnded
-    @container.on 'click', ( evt ) =>
-      if 35 <= evt.offsetY <= 40 and @currentTrack?
-        @ticker.context.style.width = evt.offsetX+"px"
-        totalTime = @audio_player[0].duration
-        factor = totalTime / @container.width()
-        @audio_player[0].currentTime = evt.offsetX * factor
+    # @container.on 'click', ( evt ) =>
+    #   if 35 <= evt.offsetY <= 40 and @currentTrack?
+    #     @ticker.context.style.width = evt.offsetX+"px"
+    #     totalTime = @audio_player[0].duration
+    #     factor = totalTime / @container.width()
+    #     @audio_player[0].currentTime = evt.offsetX * factor
 
   show: ->
     @panel ?= atom.workspace.addBottomPanel(item:this)
@@ -102,11 +103,12 @@ class KanrinPlayerView extends View
   playTrack: ( trackNum ) ->
     track = @playList[trackNum]
     player = @audio_player[0]
+    # source = @player_source[0]
     if track?
       @currentTrack = track
       @nowPlayingTitle.html (track.name)
       player.pause()
-      player.src = track.path
+      source.src = track.path
       player.load()
       player.play()
 
@@ -116,7 +118,7 @@ class KanrinPlayerView extends View
     if track?
       @togglePlayback() if not player.paused
       @currentTrack = null
-      @nowPlayingTitle.html ('Nothing to play')
+      @nowPlayingTitle.html ('没有文件')
       player.src = null
 
   filesBrowsed: ( e ) =>
