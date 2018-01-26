@@ -108,7 +108,7 @@ class KanrinPlayerView extends View
       @currentTrack = track
       @nowPlayingTitle.html (track.name)
       player.pause()
-      source.src = track.path
+      player.src = track.path
       player.load()
       player.play()
 
