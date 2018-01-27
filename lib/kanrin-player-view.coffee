@@ -1,5 +1,6 @@
 {$, View} = require 'atom-space-pen-views'
 playListView = require './kanrin-player-playlist-view'
+path = require 'path'
 module.exports =
 class KanrinPlayerView extends View
   constructor: (serializedState) ->
@@ -28,22 +29,20 @@ class KanrinPlayerView extends View
         @div class:'btn-group btn-group-sm pull-right', =>
           @tag 'label', =>
             @tag 'input', style:'display: none;', type:'button', click:'toggleShuffle'
-            @span '循环', class:'btn shuffle-button icon icon-sync'
+            @span  class:'btn shuffle-button icon icon-sync', id:'order'
           @tag 'label', =>
             @tag 'input', style:'display: none;', type:'button', click:'showPlayList'
-            @span '显示', class:'btn icon icon-list-ordered',
+            @span  class:'btn icon icon-list-unordered',
           @tag 'label', =>
             @tag 'input', style:'display: none;', type:'button', click:'clearPlayList'
-            @span '清空', class:'btn icon icon-trashcan',
+            @span class:'btn icon icon-trashcan',
           @tag 'label', =>
-            @tag 'input', style:'display: none;', type:'file', multiple:true, accept:"audio/*", outlet:"musicFileSelectionInput"
-            @span '打开', class:'btn icon icon-file-directory',
+            @tag 'input', style:'display: none;', type:'file', multiple:true, accept:"audio/mp3", outlet:"musicFileSelectionInput"
+            @span class:'btn icon icon-file-directory',
         @div class:'inline-block playing-now-container', =>
-          @span '正在播放 ->', class:'highlight'
           @span '没有文件', class:'highlight', outlet:'nowPlayingTitle'
       @div class:'kanrin-player-list-container'
       @tag 'audio', class:'audio-player', outlet:'audio_player', =>
-        #  @tag 'source', type:'audio/flac', outlet:'player_source'
 
   initialize: ->
     self = @
@@ -53,12 +52,6 @@ class KanrinPlayerView extends View
     @audio_player.on 'pause', ( ) =>
       $('.playback-button').removeClass('icon-playback-pause').addClass('icon-playback-play')
     @audio_player.on 'ended', @songEnded
-    # @container.on 'click', ( evt ) =>
-    #   if 35 <= evt.offsetY <= 40 and @currentTrack?
-    #     @ticker.context.style.width = evt.offsetX+"px"
-    #     totalTime = @audio_player[0].duration
-    #     factor = totalTime / @container.width()
-    #     @audio_player[0].currentTime = evt.offsetX * factor
 
   show: ->
     @panel ?= atom.workspace.addBottomPanel(item:this)
@@ -103,10 +96,9 @@ class KanrinPlayerView extends View
   playTrack: ( trackNum ) ->
     track = @playList[trackNum]
     player = @audio_player[0]
-    # source = @player_source[0]
     if track?
       @currentTrack = track
-      @nowPlayingTitle.html (track.name)
+      @nowPlayingTitle.html ('＞ ' + path.parse(track.path).name)
       player.pause()
       player.src = track.path
       player.load()
@@ -152,10 +144,12 @@ class KanrinPlayerView extends View
   toggleShuffle: ->
     @shuffle = !@shuffle
     if @shuffle
-      $('.shuffle-button').text('随机')
+      $('.shuffle-button').removeClass('icon-sync')
+      $('.shuffle-button').addClass('icon-issue-reopened')
       @shuffleList()
     else
-      $('.shuffle-button').text('循环')
+      $('.shuffle-button').removeClass('icon-issue-reopened')
+      $('.shuffle-button').addClass('icon-sync')
       @playList = @playListCopy[...]
 
   showPlayList: ->

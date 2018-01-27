@@ -1,5 +1,6 @@
 {View,SelectListView} = require 'atom-space-pen-views'
 $ = require 'jquery'
+path = require 'path'
 
 class PlayListView extends SelectListView
   initialize: (@player, @items) ->
@@ -11,7 +12,7 @@ class PlayListView extends SelectListView
     @focusFilterEditor()
 
   viewForItem: (track)->
-      "<li><!--<img src='' width='20' height='20' >-->&nbsp; &nbsp; #{track.name}</li>"
+      "<li>#{path.parse(track.path).name}</li>"
 
   confirmed: (track)->
       @player.playTrackByItem(track)
