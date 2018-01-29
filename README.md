@@ -3,4 +3,6 @@
 
 ---
 
-- 基于atom-music创建工程,目前还在添加新功能,已汉化!
+> a music player with ATOM  
+
+- base on [atom-music]('https://github.com/sdinesh86/atom-music')

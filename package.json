@@ -1,7 +1,7 @@
 {
   "name": "kanrin-player",
   "main": "./lib/kanrin-player",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "中文的音乐播放器 使用atom-music做基板",
   "keywords": [],
   "activationCommands": {
@@ -13,7 +13,6 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
-    "atom-space-pen-views": "^2.2.0",
-    "jquery": "^3.3.1"
+    "atom-space-pen-views": "^2.2.0"
   }
 }

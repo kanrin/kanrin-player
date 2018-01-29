@@ -1,5 +1,4 @@
 {View,SelectListView} = require 'atom-space-pen-views'
-$ = require 'jquery'
 path = require 'path'
 
 class PlayListView extends SelectListView

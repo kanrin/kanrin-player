@@ -40,7 +40,8 @@ class KanrinPlayerView extends View
             @tag 'input', style:'display: none;', type:'file', multiple:true, accept:"audio/mp3", outlet:"musicFileSelectionInput"
             @span class:'btn icon icon-file-directory',
         @div class:'inline-block playing-now-container', =>
-          @span '没有文件', class:'highlight', outlet:'nowPlayingTitle'
+          @span '', class:'highlight', outlet:'stateTag'
+          @span '', class:'highlight', outlet:'nowPlayingTitle'
       @div class:'kanrin-player-list-container'
       @tag 'audio', class:'audio-player', outlet:'audio_player', =>
 
@@ -48,8 +49,10 @@ class KanrinPlayerView extends View
     self = @
     @musicFileSelectionInput.on 'change', @filesBrowsed
     @audio_player.on 'play', ( ) =>
+      @stateTag.html('＞ ')
       $('.playback-button').removeClass('icon-playback-play').addClass('icon-playback-pause')
     @audio_player.on 'pause', ( ) =>
+      @stateTag.html('|| ')
       $('.playback-button').removeClass('icon-playback-pause').addClass('icon-playback-play')
     @audio_player.on 'ended', @songEnded
 
@@ -98,7 +101,7 @@ class KanrinPlayerView extends View
     player = @audio_player[0]
     if track?
       @currentTrack = track
-      @nowPlayingTitle.html ('＞ ' + path.parse(track.path).name)
+      @nowPlayingTitle.html (path.parse(track.path).name)
       player.pause()
       player.src = track.path
       player.load()
@@ -110,7 +113,8 @@ class KanrinPlayerView extends View
     if track?
       @togglePlayback() if not player.paused
       @currentTrack = null
-      @nowPlayingTitle.html ('没有文件')
+      @stateTag.html('')
+      @nowPlayingTitle.html ('')
       player.src = null
 
   filesBrowsed: ( e ) =>
@@ -131,9 +135,11 @@ class KanrinPlayerView extends View
     if @currentTrack?
       if player.paused or player.currentTime == 0
         player.play()
+        @stateTag.html('＞ ')
         $('.playback-button').removeClass('icon-playback-play').addClass('icon-playback-pause')
       else
         player.pause()
+        @stateTag.html('|| ')
         $('.playback-button').removeClass('icon-playback-pause').addClass('icon-playback-play')
 
   shuffleList: ->

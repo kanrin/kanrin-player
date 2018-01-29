@@ -28,13 +28,13 @@ describe "KanrinPlayer", ->
       runs ->
         expect(workspaceElement.querySelector('.kanrin-player')).toExist()
 
-        atomMusicElement = workspaceElement.querySelector('.kanrin-player')
-        expect(atomMusicElement).toExist()
+        kanrinPlayerElement = workspaceElement.querySelector('.kanrin-player')
+        expect(kanrinPlayerElement).toExist()
 
-        atomMusicPanel = atom.workspace.panelForItem(atomMusicElement)
-        expect(atomMusicPanel.isVisible()).toBe true
+        kanrinPlayerPanel = atom.workspace.panelForItem(kanrinPlayerElement)
+        expect(kanrinPlayerPanel.isVisible()).toBe true
         atom.commands.dispatch workspaceElement, 'kanrin-player:toggle'
-        expect(atomMusicPanel.isVisible()).toBe false
+        expect(kanrinPlayerPanel.isVisible()).toBe false
 
     it "hides and shows the view", ->
       # This test shows you an integration test testing at the view level.
@@ -56,7 +56,7 @@ describe "KanrinPlayer", ->
 
       runs ->
         # Now we can test for view visibility
-        atomMusicElement = workspaceElement.querySelector('.kanrin-player')
-        expect(atomMusicElement).toBeVisible()
+        kanrinPlayerElement = workspaceElement.querySelector('.kanrin-player')
+        expect(kanrinPlayerElement).toBeVisible()
         atom.commands.dispatch workspaceElement, 'kanrin-player:toggle'
-        expect(atomMusicElement).not.toBeVisible()
+        expect(kanrinPlayerElement).not.toBeVisible()
